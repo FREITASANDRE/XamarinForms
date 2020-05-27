@@ -1,0 +1,41 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Agenda.Views.ListarEventos"
+             Title="Eventos"
+             xmlns:fontawesome="clr-namespace:FontAwesome">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{x:Static fontawesome:FontAwesomeIcons.Sync}" Clicked="AddItem_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    Glyph="{x:Static fontawesome:FontAwesomeIcons.Plus}" 
+                    Size="Medium"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ListaEventos" HasUnevenRows="True" SeparatorColor="Blue" Margin="15" IsPullToRefreshEnabled="true" Refreshing="ListaEventos_Refreshing">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="80">
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnDelete"
+                                      CommandParameter="{Binding .}"
+                                      Text="Deletar" IsDestructive="True" /> 
+                            </ViewCell.ContextActions>
+                            <StackLayout>
+                                <Label Text="{Binding Nome, StringFormat='Nome: {0}'}"/>
+                                <Label Text="{Binding Descricao, StringFormat='Descrição: {0}'}"/>
+                                <Label Text="{Binding Data,StringFormat='Data: {0: dd/MM/yyyy}'}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
